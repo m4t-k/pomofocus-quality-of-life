@@ -1,10 +1,10 @@
 {
-  "name": "pomofocus-power-user",
-  "version": "0.0.1",
-  "description": "extra pomofocus productivity features",
+  "name": "Pomofocus Quality of Life",
+  "version": "1.0.1",
+  "description": "Extra features for pomofocus.io",
   "main": "content.js",
   "author": "mat k",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "devDependencies": {
     "@rollup/plugin-image": "^3.0.2",
     "@types/chrome": "^0.0.224",
@@ -18,5 +18,7 @@
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c -w"
+  },
+  "dependencies": {
   }
 }

@@ -10,7 +10,11 @@ These simple features can go a long way to make any large projects you work on m
 ![Screenshot 2](./docs/images/screen_2_640.png)
 
 ## Installation
-1. Install locally from repository
+1. Now on the [chrome web store](https://chrome.google.com/webstore/detail/pomofocus-quality-of-life/cgjcmonifjkgeepfjfbbhegbohehpfdp?hl=en-GB&authuser=0)!
+
+Or:
+
+2. Install locally from repository
     1. Clone this repository.
     2. Navigate to `chrome://extensions/` in your browser.
     3. Enable developer mode.
@@ -27,5 +31,10 @@ These simple features can go a long way to make any large projects you work on m
 
 
 # Patch Notes
+## 1.0.1
+- Fix 'import' button not being selected on pomofocus.io
+- Added a toast to tell you when you're not logged in
+
+
 ## 1.0.0
 - Initial release / MVP

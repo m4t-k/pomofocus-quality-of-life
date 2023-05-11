@@ -1,3 +1,5 @@
+// import toast from './toaster'
+
 export const waitForAndObserveTaskList = () => {
   let taskDiv;
   let taskNodes;
@@ -15,6 +17,8 @@ export const waitForAndObserveTaskList = () => {
   const setTasks = (newTasks) => {
     tasks = newTasks
   }
+
+
 
   const getElementByXpath = (path) => {
     return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
@@ -402,6 +406,52 @@ export const renderProjectsFromLocalStorage = () => {
       project: string
   }
 
+  const toast = () => {
+    // create toast div
+    const toast = document.createElement('div')
+    toast.style.position = 'fixed'
+    toast.style.bottom = '20px'
+    toast.style.left = '20px'
+    toast.style.right = '20px'
+    toast.style.margin = 'auto'
+    toast.style.maxWidth = '510px'
+
+    toast.style.backgroundColor = 'ghostwhite'
+    toast.style.borderRadius = '4px'
+
+    // add box shadow
+    toast.style.boxShadow = 'rgb(0 0 0 / 15%) 0px 10px 20px, rgb(0 0 0 / 10%) 0px 3px 6px'
+
+    // create toast message
+    const toastMessage = document.createElement('p')
+    toastMessage.style.display = 'flex'
+    toastMessage.style.alignItems = 'center'
+    toastMessage.style.justifyContent = 'center'
+
+    toastMessage.textContent = 'Please log in to use todoist implementation.'
+
+    // append toast message to toast div
+    toast.appendChild(toastMessage)
+
+    // append toast div to body
+    document.body.appendChild(toast)
+
+    // remove toast after 3 seconds
+    setTimeout(() => {
+      const removeFadeOut = ( el, speed ) => { // https://stackoverflow.com/a/33424474
+        var seconds = speed/1000;
+        el.style.transition = "opacity "+seconds+"s ease";
+
+        el.style.opacity = 0;
+        setTimeout(function() {
+            el.parentNode.removeChild(el);
+        }, speed);
+    }
+      removeFadeOut(toast, 300)
+    }
+    , 3000)
+  }
+
   const getElementByXpath = (path) => {
     return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
   }
@@ -417,6 +467,16 @@ export const renderProjectsFromLocalStorage = () => {
 
 
       const importButton = getElementByXpath("//div[contains(text(), 'Import from Todoist')]") as HTMLButtonElement
+
+
+      const loginButton = getElementByXpath("//div[contains(text(), 'Login')]") as HTMLButtonElement
+
+      if (loginButton) {
+        toast()
+        return;
+      }
+
+      
 
       importButton.click()
 
@@ -469,6 +529,8 @@ export const renderProjectsFromLocalStorage = () => {
               }
             });
 
+
+            console.log('local tasks')
             console.log(localTasks)
 
             // save localTasks back to storage
@@ -476,9 +538,11 @@ export const renderProjectsFromLocalStorage = () => {
 
             // click the import when it is not disabled
             const waitForImportButton = setInterval(() => {
-              let finalImportButton = getElementByXpath('//*[@id="target"]/div/div[7]/div/div/div/div[3]/button[2]') as HTMLButtonElement
+              let finalImportButton = getElementByXpath('//div[contains(text(), "Choose Tasks to Import")]/following-sibling::*[2]//button[position()=2]') as HTMLButtonElement
 
               if (finalImportButton) {
+                console.log('found final import button')
+                console.log(finalImportButton)
                 if (!finalImportButton.disabled) {
                   clearInterval(waitForImportButton)
                   console.log(finalImportButton)
@@ -492,6 +556,10 @@ export const renderProjectsFromLocalStorage = () => {
 
         }
       }, 200)
+
+      setTimeout(() => {
+        clearInterval(waitForImportModal);
+      }, 2000);
 
     })
 
