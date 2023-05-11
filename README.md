@@ -14,11 +14,9 @@ These simple features can go a long way to make any large projects you work on m
 
 Or:
 
-2. Install locally from repository
-    1. Clone this repository.
-    2. Navigate to `chrome://extensions/` in your browser.
-    3. Enable developer mode.
-    4. Click "Load unpacked" and select the cloned repository.
+1. Navigate to the [releases](releases/tag/release) tab.
+2. Follow those instructions.
+
 
 ## Development
 1. Clone this repository.
