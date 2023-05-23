@@ -29,6 +29,10 @@ Or:
 
 
 # Patch Notes
+## 1.0.2
+- Bugfix for sending tasks with a description
+- Added a toast to clear cache if item is not found
+
 ## 1.0.1
 - Fix 'import' button not being selected on pomofocus.io
 - Added a toast to tell you when you're not logged in

@@ -406,6 +406,72 @@ export const renderProjectsFromLocalStorage = () => {
       project: string
   }
 
+  const toastClearCache = () => {
+    const toast = document.createElement('div')
+    toast.style.zIndex = '2147483648'
+    toast.style.position = 'fixed'
+    toast.style.bottom = '20px'
+    toast.style.left = '20px'
+    toast.style.right = '20px'
+    toast.style.margin = 'auto'
+    toast.style.maxWidth = '510px'
+
+    toast.style.backgroundColor = 'ghostwhite'
+    toast.style.borderRadius = '4px'
+
+    // add box shadow
+    toast.style.boxShadow = 'rgb(0 0 0 / 15%) 0px 10px 20px, rgb(0 0 0 / 10%) 0px 3px 6px'
+
+    // create toast message
+    const toastMessage = document.createElement('p')
+    toastMessage.style.display = 'flex'
+    toastMessage.style.alignItems = 'center'
+    toastMessage.style.justifyContent = 'center'
+
+    toastMessage.textContent = 'Could not find pomofocus item'
+
+    const clearCacheButton = document.createElement('button')
+    clearCacheButton.textContent = 'Clear Cache'
+    clearCacheButton.style.marginLeft = '10px'
+    clearCacheButton.style.padding = '4px'
+    clearCacheButton.style.borderRadius = '4px'
+    clearCacheButton.style.border = 'none'
+    clearCacheButton.style.cursor = 'pointer'
+    clearCacheButton.style.background = 'rgb(240, 240, 240)'
+    clearCacheButton.style.fontSize = '13px'
+    clearCacheButton.style.color = 'rgb(163, 163, 163)'
+
+
+    clearCacheButton.addEventListener('click', () => {
+      chrome.storage.local.set({ tasks: [] })
+      toast.style.display = 'none'
+    })
+
+    toastMessage.appendChild(clearCacheButton)
+
+    // append toast message to toast div
+    toast.appendChild(toastMessage)
+
+    // append toast div to body
+    document.body.appendChild(toast)
+
+    // remove toast after 3 seconds
+    setTimeout(() => {
+      const removeFadeOut = ( el, speed ) => { // https://stackoverflow.com/a/33424474
+        var seconds = speed/1000;
+        el.style.transition = "opacity "+seconds+"s ease";
+
+        el.style.opacity = 0;
+        setTimeout(function() {
+            el.parentNode.removeChild(el);
+        }, speed);
+    }
+      removeFadeOut(toast, 300)
+    }
+    , 30000)
+  }
+
+
   const toast = () => {
     // create toast div
     const toast = document.createElement('div')
@@ -529,6 +595,9 @@ export const renderProjectsFromLocalStorage = () => {
               }
             });
 
+            if (localTasks.tasks.length > 0) {
+              toastClearCache()
+            }
 
             console.log('local tasks')
             console.log(localTasks)

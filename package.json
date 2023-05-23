@@ -1,6 +1,6 @@
 {
-  "name": "Pomofocus Quality of Life",
-  "version": "1.0.1",
+  "name": "pomofocus-qol",
+  "version": "1.0.2",
   "description": "Extra features for pomofocus.io",
   "main": "content.js",
   "author": "mat k",

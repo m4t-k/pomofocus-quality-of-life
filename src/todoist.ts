@@ -122,7 +122,7 @@ const waitAndInsertSendButton = () => {
 
                 for (let i = 0; i < boardTasks.length; i++) {
 
-                    const title = boardTasks[i].getElementsByClassName('board_task__details__content')[0].textContent
+                    const title = boardTasks[i].getElementsByClassName('board_task__details__content')[0].childNodes[0].textContent
 
                     appendSendButton(boardTasks[i] as HTMLElement, title, project)
 
